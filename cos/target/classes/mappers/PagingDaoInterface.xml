@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team.cos.paging.dao.PagingDaoInterface">
+	
+	<!-- ///////////////////////// 페이징 ////////////////////////// -->
+	
+	<!-- criteria를 적용하여 Question 리스트에 대한 페이징 -->
+	<select id="listCriteria" resultType="com.team.cos.question.vo.QuestionInfo">
+		select q_no, user_no, user_nickname, q_title, q_content, q_tag, DATE_FORMAT(q_regdate, '%Y-%m-%d %r') as q_regdate, q_recommand, q_viewcnt 
+		from question 
+		where q_no > 0
+		<trim prefix="ORDER by">
+			<if test="filter == 'q_regdate'"> 
+			q_regdate desc, q_no desc
+			</if>
+			<if test="filter == 'q_viewcnt'"> 
+			q_viewcnt desc, q_no desc
+			</if>
+			<if test="filter == 'q_recommand'"> 
+			q_recommand desc, q_no desc
+			</if>
+		</trim>
+		limit #{pageStart}, #{perPageNum}
+		
+	</select>
+	
+	<!-- 페이징 카운트 -->
+	<select id="countPaging" resultType="int">
+		select count(q_no) from question where q_no > 0
+	</select>
+	
+	
+	<!-- //////////////// 프로젝트 ////////////////////// -->
+	<select id="projectListCriteria" parameterType="int" resultType="com.team.cos.project.vo.ProjectInfoVO">
+		select  distinct p.project_no, project_title, project_content, project_status, project_startdate, project_enddate from project p
+		left join project_member m
+		on p.project_no = m.project_no
+		where p.pm_no=#{user_no} or m.member_no=#{user_no}
+		order by project_status desc
+		limit #{pageStart}, #{perPageNum}
+	</select>
+	<select id="projectCountPaging" resultType="int">
+		select  distinct count( p.project_no) from project p
+		left join project_member m
+		on p.project_no = m.project_no
+		where p.pm_no=#{user_no} or m.member_no=#{user_no}
+	</select>
+
+</mapper>

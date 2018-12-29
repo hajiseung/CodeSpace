@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.cos.news.dao.NewsDao">
+
+<select id="getNewsList" resultType="com.team.cos.news.vo.NewsInfo">
+	select * 
+	from news
+	where n_no > 0
+	order by n_no desc
+	limit #{startNum}, #{perPageNum}
+</select>
+
+<select id="getCurrentNews" resultType="com.team.cos.news.vo.NewsInfo">
+	select * from news order by n_no desc limit 3 
+</select>
+
+<select id="countNews" resultType="int">
+	select count(*)
+	from news
+	where n_no>0 
+</select>
+
+<!-- 게시글 한개 보기 -->
+<select id="getNewsView" resultType="com.team.cos.news.vo.NewsInfo">
+	select *
+	from news
+	where n_no>0 and n_no=#{n_no}
+</select>
+
+<insert id="writeNews" parameterType="com.team.cos.news.vo.NewsInfo" useGeneratedKeys="true" keyColumn="n_no">
+	<!-- insert into news
+	(n_title, n_content, n_regdate)
+	values (#{param1}, #{param2}, now()) -->
+	
+	insert into news (n_title, n_writer, n_content, n_regdate, n_viewcnt)
+	values (#{n_title}, #{n_writer}, #{n_content}, now(), 0)
+
+</insert>
+
+<update id="editNews" parameterType="com.team.cos.news.vo.NewsInfo">
+	update news set
+	n_title = #{n_title},
+	n_writer = #{n_writer},
+	n_content = #{n_content},
+	n_regdate = now()
+	where n_no = #{n_no}
+</update>
+           
+<delete id="deleteNews" >
+	delete from news where n_no = #{n_no}
+</delete>
+
+
+<update id="n_viewcnt">
+	update news 
+	set	n_viewcnt = n_viewcnt +1
+	where n_no = #{n_no}
+</update>
+
+
+
+<!-- 댓글 -->
+<!-- 댓글 불러오기 -->
+<select id="getNewsCommList" resultType="com.team.cos.news.vo.NewsCommentInfo">
+	select nc_no, n_no, c.user_no, user_nickname,  nc_content, nc_regdate
+	from news_comm c, userinfo u
+	where c.user_no = u.user_no and n_no = #{n_no}
+</select>
+
+<!-- 댓글 개수 올리기 -->
+<update id="countNewsComm">
+	update news 
+	set	nc_cnt = nc_cnt +1
+	where n_no = #{n_no}
+</update>
+
+<insert id="writeComm" parameterType="com.team.cos.news.vo.NewsCommentInfo">
+	insert into news_comm (n_no, user_no, nc_content, nc_regdate)
+	values (#{n_no}, #{user_no}, #{nc_content}, now())
+</insert>
+
+<delete id="deleteComm">
+	delete from news_comm 
+	where nc_no = #{nc_no}
+</delete>
+
+<!-- 페이지 넘길때 게시글 번호 찾아주기 -->
+<select id="selectNum" resultType="int">
+	select n_no
+	from news_comm
+	where nc_no = #{nc_no}
+</select>
+
+<update id="editComm" parameterType="com.team.cos.news.vo.NewsCommentInfo">
+	update news_comm 
+	set
+	nc_content = #{nc_content},
+	nc_regdate = now()	
+	where nc_no = #{nc_no}
+</update>
+
+<select id="getComm" resultType="com.team.cos.news.vo.NewsCommentInfo">
+	select *
+	from news_comm
+	where nc_no = #{nc_no}
+</select>
+
+<!-- 댓글 개수 카운트 -->
+<!-- <select id="countComm" resultType="com.team.cos.news.vo.NewsCommentInfo">
+	select count(*), n_no
+	from news_comm
+	group by n_no  
+	having n_no in(select n_no from news)
+</select> -->
+
+
+
+</mapper>

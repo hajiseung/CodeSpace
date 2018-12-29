@@ -1,0 +1,178 @@
+@charset "UTF-8";
+
+/* nav tab 설정 */
+
+
+
+
+
+
+
+
+
+/* nav tab 설정 끝 */
+
+/* 유저 아이콘 */
+y_user{
+	margin-right: 20px;
+}
+
+/* 프로필 */
+h2, td {
+	padding: 10px;
+}
+
+.y_userphoto {
+	background-size: 100%;
+	width: 150px;
+	height: 150px;
+	border: 1px;
+	border-radius: 75px;
+	margin-top: 70px;
+	float : left;
+	margin-left: 70px;
+	
+}
+.yu_btn1{
+	margin-top: 50px; 
+	margin-left : 420px; 
+	background-color: rgb(9,51,132);
+	border: none;
+}
+.yu_btn1:hover{
+	background-color: gray;
+}
+.y_profile_myInfo{
+	margin-left: 250px;
+	width: 600px;
+	padding-top: 70px;
+}
+.yu_btn_del{
+	margin-top: 50px; 
+	margin-left : 420px; 
+	border: none;
+}
+
+/* 프로필 변경 끝 */
+
+/* 프로필 수정 폼 */
+.y_edit_myPhoto{
+	
+}
+
+#y_image_profile {
+	background-size: 100%;
+	width: 150px;
+	height: 150px;
+	border: 1px;
+	border-radius: 75px;
+	margin-top: 70px;
+	float : left;
+	margin-left: 70px;
+}
+/* .y_editForm{
+	margin-left: 250px;
+	width: 600px; 
+	padding-top: 70px;
+
+}
+.y_editForm .item{
+	width: 200px;
+}
+y_editForm input{
+	size : 60
+}
+.yu_btn2{
+	margin: 20px 250px; 상우하좌
+	background-color: rgb(9,51,132);
+	border: none;
+} */
+.y_btn_file{
+	
+	
+}
+.yu_btn2{
+	margin-left: 420px;
+}
+.y_editForm .item{
+	width: 200px;
+}
+.y_editForm input{
+	size : 500px;
+}
+
+/* 프로필 수정 끝 */
+
+/* 다른 사용자 페이지 */
+.y_container{
+
+}
+.y_usersP_1{
+	/* border: 1px solid #333333; */ 
+	background-size : 100%;
+	border-radius : 10px;
+	width: 150px;
+	height: 160px;
+	margin-left:50px;
+
+}
+.y_usersP_photo{
+	/* border: 1px solid #333333; */ 
+
+}
+.y_usersP_intro{
+	/* border: 1px solid #333333; */ 
+}
+.y_usersP_intro h3{
+	margin-top: 15px;
+}
+.y_usersP_intro p{
+	margin-top: 20px;
+	padding-left: 20px;
+}
+.y_userP_info{
+	/* border: 1px solid #333333; */ 
+	
+}
+.y_userP_info>div{
+	/* border: 1px solid black;  */
+}
+.y_userP_info1 {
+	float: left; 	
+	text-align: center;
+	padding-top: 15px;
+	height: 120px;
+}
+.y_userP_info2{
+	float: right; 
+	text-align: center;
+	padding-top: 15px;
+	height: 120px;
+}
+.y_userP_score{
+/* 	text-align: center;  */
+	font-weight: 600;
+	
+}
+/* 다른 사용자 페이지 끝 */
+
+/* 드래그 앤 드롭 시작 */
+div.todoPost{
+	width: 150px;
+	height: 150px;
+	background-color: yellow;
+	border:1px solid black;
+    box-shadow: 2px 2px 2px;
+} 
+
+
+
+
+
+
+
+
+
+
+
+/* 드래그 앤 드롭 끝 */

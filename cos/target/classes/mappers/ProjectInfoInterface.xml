@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team.cos.project.dao.ProjectInfoInterface">
+
+	<!-- project_no에 해당하고, 현재 진행중인 플젝 정보 반환 -->
+	<select id="selectProjectList"
+		resultType="com.team.cos.project.vo.ProjectInfoVO">
+		select * from project where project_no = #{project_no} and
+		project_status=1
+	</select>
+
+	<!-- project_no에 해당하는 모든 플젝 정보 반환 -->
+	<select id="selectAllProjectList"
+		resultType="com.team.cos.project.vo.ProjectInfoVO">
+		select * from project where project_no = #{project_no}
+		order by project_status
+	</select>
+
+	<!-- 플젝 정보 추가 -->
+	<insert id="insertProject">
+		insert into project
+		(project_title, project_content, project_startdate,
+		project_enddate, pm_no)
+		values
+		(#{project_title},
+		#{project_content},
+		now(), #{project_enddate}, #{pm_no})
+		<!-- 입력한후에 입력된 값의 컬럼값(자동증가값)을 가져오고 싶다면 아래와 같이 진행한다. SELECT LAST_INSERT_ID()은 
+			mysql(mariadb)에서 사용한다. 방금입력한 테이블의 auto_increment로 증가된 컬럼값을 가져오는 쿼리이다. order=AFTER로 
+			설정 -->
+		<selectKey resultType="int" keyProperty="project_no"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+
+	</insert>
+
+		
+	
+	<!-- project_no에 해당하는 플젝 정보 수정 -->
+	<update id="updateProject"
+		parameterType="com.team.cos.project.vo.ProjectInfoVO">
+		update project
+		set
+		project_title = #{project_title},
+		project_content = #{project_content},
+		project_enddate =
+		#{project_enddate}
+		where
+		project_no = #{project_no}
+	</update>
+
+	<!-- project finish 클릭 시 project_status = 0(done)으로 update -->
+	<update id="updateProStatus">
+		update project
+		set project_status=0,
+		project_enddate=now()
+		where project_no = #{project_no}
+	</update>
+	<update id="updateProStatusToStart"
+		parameterType="com.team.cos.project.vo.ProjectInfoVO">
+		update project
+		set project_status=1,
+		project_startdate=now(), project_enddate=#{project_enddate}
+		where
+		project_no = #{project_no}
+	</update>
+	<!-- 전체 프로젝트 상태 업데이트 -->
+	<update id="updateAllProStatus">
+		update project set project_status=0
+		where
+		project_enddate in (date(now()))
+	</update>
+
+
+	<!-- 로그인한 사용자가 참여중인 project가 있는지 확인 :: not pm -->
+	<select id="selectUserPro" parameterType="int"
+		resultType="com.team.cos.project.vo.ProjectInfoVO">
+		select *
+		from
+		project p
+		inner join
+		project_member m
+		on
+		p.project_no = m.project_no
+		where
+		m.member_no=#{user_no}
+		order by
+		project_status
+	</select>
+
+	<select id="selectPmProject" parameterType="int"
+		resultType="com.team.cos.project.vo.ProjectInfoVO">
+		select * from project where pm_no=#{pm_no}
+	</select>
+
+	<select id="selectProjectNo" parameterType="int"
+		resultType="int">
+		select distinct p.project_no from project p
+		left join
+		project_member m
+		on p.project_no = m.project_no
+		where p.pm_no=#{user_no}
+		or m.member_no=#{user_no}
+	</select>
+
+	<!-- project 테이블에 member로 추가한 user_no update -->
+	<insert id="memberUpdate"
+		parameterType="com.team.cos.project.vo.ProjectMemberVO">
+		insert into project_member
+		(project_no, member_no)
+		values
+		(#{project_no}, #{member_no})
+	</insert>
+	
+	<!-- member정보 delete -->
+	<delete id="memberDelete">
+		delete from project_member where member_no=#{member_no} 
+	</delete>
+
+	<!-- project에 참여중인 member list 표출하기 -->
+	<select id="selectMember"
+		parameterType="com.team.cos.project.vo.ProjectMemberVO"
+		resultType="com.team.cos.project.vo.ProjectMemberVO">
+		select member_no from project_member where
+		project_no=#{project_no}
+	</select>
+
+	<!-- project 정보 수정 시 history 저장: revision_project table -->
+	<insert id="insertRevisionProject">
+		insert into revision_project 
+			(project_no, project_title, project_content, project_status, 
+			project_startdate, project_enddate)
+		select 
+			project_no, project_title, project_content, project_status, 
+			project_startdate, project_enddate  from project
+		where project.project_no=#{project_no}
+	</insert>
+	
+	<!-- project revision history 가져오기 -->
+	<select id="getRevisionList"
+		parameterType="com.team.cos.project.vo.ProjectInfoVO"
+		resultType="com.team.cos.project.vo.ProjectInfoVO">
+		select * from revision_project
+		where project_no=#{project_no}
+		order by revision_date
+	</select>
+	
+	
+	<!-- 공지사항 받아오기 위함 -->
+	<select id="projectNoticeView"
+		parameterType="com.team.cos.project.vo.ProjectInfoVO"
+		resultType="com.team.cos.project.vo.ProjectNoticeVO">
+		select * from
+		project_notice
+		where project_no=#{project_no}
+	</select>
+
+	<select id="projectNoticeView2"
+		parameterType="com.team.cos.project.vo.ProjectInfoVO"
+		resultType="com.team.cos.project.vo.ProjectNoticeVO">
+		select * from
+		project_notice
+		where project_no=#{project_no}
+		limit #{firstRow},#{endRow}
+	</select>
+	
+	<select id="noticePageCheck"
+		parameterType="com.team.cos.project.vo.ProjectInfoVO"
+		resultType="com.team.cos.project.vo.PageNum">
+		select count(*) pageTotalCont from project_notice where
+		project_no=#{project_no}
+	</select>
+	<!-- 공지사항 작성 -->
+	<insert id="noticeWrite"
+		parameterType="com.team.cos.project.vo.ProjectNoticeVO">
+		insert into
+		project_notice(project_no,notice_title,notice_content,notice_regdate,ops)
+		values(#{project_no},#{notice_title},#{notice_content},now(),#{ops})
+
+	</insert>
+
+	<!-- 공지사항 클릭시 세부 내용 -->
+	<select id="noticeDetailView"
+		parameterType="com.team.cos.project.vo.ProjectNoticeVO"
+		resultType="com.team.cos.project.vo.ProjectNoticeVO">
+		select * from
+		project_notice
+		where notice_no=#{notice_no}
+	</select>
+
+	<!-- 공지사항 작성위한 pm 체크 -->
+	<select id="checkPm"
+		parameterType="com.team.cos.project.vo.ProjectInfoVO"
+		resultType="com.team.cos.project.vo.ProjectInfoVO">
+		select * from project where pm_no=#{user_no}
+	</select>
+
+	<update id="noticeUpdate"
+		parameterType="com.team.cos.project.vo.ProjectNoticeVO">
+		update project_notice set ops=#{ops},
+		notice_regdate=now() where notice_no=${notice_no}
+	</update>
+
+	<delete id="noticeDelete"
+		parameterType="com.team.cos.project.vo.ProjectNoticeVO">
+		delete from project_notice where notice_no=#{notice_no};
+	</delete>
+</mapper>

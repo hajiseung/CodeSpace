@@ -1,0 +1,271 @@
+@charset "UTF-8";
+
+.result-cell {
+	border: 1px solid black;
+	margin-top: 0px;
+	line-height: 3;
+	text-align: center;
+	max-height: 100px;
+}
+
+.question-viewCnt, .question-recommCnt {
+	line-height: 2;
+	text-align: center;
+	max-height: 100px;
+}
+
+.question-title {
+	line-height: 3;
+	text-align: center;
+	max-height: 100px;
+}
+
+.question-number{
+	font-size: 24px;
+}
+
+.question-info{
+	float: right;
+	text-align:right;
+}
+
+.result-row::after{
+	padding-top: 5px;
+	padding-bottom: 0px;
+	min-height: 20px;
+	max-height: 30px;
+}
+
+.result-List{
+	padding-bottom: 10px;
+}
+
+.result-link {
+	text-align: left;
+}
+
+.result-link a{
+	max-height: 10px;
+}
+
+.result-tag {
+	text-align: left;
+	margin-top: 0px;
+	background-color: grey;
+	border-radius: 10px;
+}
+
+.search-paging {
+	
+}
+
+.paging-number{
+	padding-left: 1.8em;
+}
+
+.list-container a:link{
+	text-decoration: none;
+}
+
+.list-container a:hover{
+	font-weight: bold;	
+}
+
+.user-row{
+	
+	margin: 1px;
+	text-align: center;
+}
+
+.user-info{
+	
+	margin: 0px 0px 50px 0px;
+	padding-left: 0px;
+	padding-bottom: 30px;
+	min-height: 20px;
+	min-width: 40px;
+	
+}
+
+.userPic{
+	padding: 0;
+	margin-right: 10px;
+}
+
+.user-tag{
+	padding: 0px;
+	font-size: 8px;
+}
+
+.user-tag2{
+	
+	margin: 0px;
+	margin-bottom: 30px;
+	min-height: 30px;
+	text-align: left;
+	color: white;
+	padding-left: 20px;
+	
+}
+
+
+.user-detail {
+	text-align: left;
+	padding-left: 3px;
+	margin-left: 11px;
+}
+
+.user-detail-attribute{
+	margin: 0;
+	padding: 0;
+}
+
+.user-row {
+}
+
+.user-score, .user-intro, .user-nickname{
+	font-size: 14px;
+}
+
+.user-nickname{
+	font-size: 15px;
+}
+
+.user-score{
+	font-weight:bold;
+}
+
+.user-list-score{
+	font-weight:bold;
+}
+
+
+.userSearchBar {
+	display: inline-block;
+	margin-left: 10px;
+}
+
+.user-view-filter, .list-view-filter {
+	margin-left: 80px;
+	display: inline-block;
+	float: right;
+}
+
+.list-view-filter table{
+}
+
+.user-view-filter a:link, .list-view-filter a:link{
+	text-decoration: none;
+}
+
+.all-questions-cnt{
+	display: inline-block;
+}
+
+
+.userList {
+	padding-left:0;
+}
+
+.userFrame {
+	width: 300px;
+	height: 150xp;
+}
+
+.userSearch {
+	position: relative;
+	padding-right: 15px;
+	overflow-x: visible;
+	-webkit-overflow-scrolling: touch;
+	border-top: 1px solid transparent;
+	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1);
+}
+
+.picInfo{
+	text-align:left;
+}
+
+.user-view-list-pic{
+	padding: 0;
+	margin: 0;
+	margin-right: 10px;
+}
+
+.user-view-list-detail {
+	text-align: left;
+}
+
+.user-view-list-tag-::after{
+	text-align: left;
+	padding-top: 30px;
+}
+
+.user-view-list-title{
+	font-size: 20px;
+}
+
+.tag-value{
+	padding : 0;
+	margin: 0;
+	background-color: lightblue;
+	border-radius: 5px;
+}
+
+.hr{
+	
+}
+
+.top-hr{
+	
+	border: 0;
+	height: 3px;
+	background: #ccc;
+}
+
+.bottom-hr{
+	margin-top: 25px;
+}
+
+.user-list-row{
+	
+	margin: 1px;
+}
+
+.questions-tag::after{
+	text-align: left;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	margin-bottom: 5px;
+}
+
+.user-tag-::after{
+	padding-top: 10px;
+}
+
+.tag-box{
+	
+	display: inline-block;
+	float: left;
+	margin-right: 5px;
+}
+
+.user-box-tag{
+	margin-left: 10px;
+}
+
+.tag-info{
+	
+	color: black;
+	background-color: lightgrey;
+	margin-right: 5px;
+	border-radius: 5px;
+	margin-bottom: 3px;
+}
+
+.userInfo-tag{
+	
+	display: inline-block;
+	float: left;
+	
+}

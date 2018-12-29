@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team.cos.search.dao.SearchDaoInterface">
+	
+	<!-- 메인 검색 창 검색 쿼리 -->
+	<select id="searchResults" resultType="com.team.cos.question.vo.QuestionInfo">
+		select q_no, user_no, user_nickname, q_title, q_content, q_tag, 
+		DATE_FORMAT(q_regdate, '%Y-%m-%d %r') as q_regdate, q_recommand, q_viewcnt
+		from question 
+		where q_no > 0
+		and q_content like CONCAT('%',#{keyword},'%')
+		order by q_regdate desc, q_no desc
+		limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<!-- 메인 검색 창 검색 결과 Cnt 쿼리 -->
+	<select id="searchCnt" resultType="int">
+		select count(q_no) from question 
+		where q_no > 0 and q_content like CONCAT('%',#{keyword},'%')
+	</select>
+	
+	<!-- 유저 페이지 검색 결과  쿼리-->
+	<select id="searchUser" resultType="com.team.cos.userinfo.vo.UserInfoVo">
+		select * from userinfo where user_nickname like CONCAT('%',#{words},'%')
+	</select>
+	
+	<!-- 프로젝트 유저 검색 결과 쿼리 -->
+	<select id="searchUserExceptSelectedMember" 
+		parameterType="com.team.cos.project.vo.ProjectMemberVO"
+		resultType="com.team.cos.userinfo.vo.UserInfoVo">
+		select * from userinfo 
+		where 
+			user_nickname like CONCAT('%',#{user_nickname},'%')
+		and
+		<foreach collection="member" index="index" item="item">
+			user_no != #{item}
+		</foreach>
+	</select>
+	
+	<!-- 태그 검색 결과 쿼리 -->
+	<select id="searchTag" resultType="com.team.cos.question.vo.QuestionInfo">
+		select q_no, user_no, user_nickname, q_title, q_content, q_tag, 
+		DATE_FORMAT(q_regdate, '%Y-%m-%d %r') as q_regdate, q_recommand, q_viewcnt 
+		from question 
+		where q_no > 0
+		and binary(q_tag) like CONCAT('%',#{tag},'%')
+		order by q_regdate desc, q_no desc
+		limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<!-- 태그 검색 결과 Cnt 쿼리 -->
+	<select id="searchTagCnt" resultType="int">
+		select count(q_no) from question 
+		where q_no > 0 
+		and binary(q_tag) like CONCAT('%',#{tag},'%')
+	</select>
+
+</mapper>

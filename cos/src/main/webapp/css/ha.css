@@ -1,0 +1,210 @@
+@charset "UTF-8";
+
+.h_table {
+	width: 50px;
+}
+
+.h_login {
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+	border-radius: 5px;
+	margin-left: 10px;
+}
+
+.h_loginForm {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-align: center;
+	align-items: center;
+	padding-top: 40px;
+	padding-bottom: 40px;
+}
+
+.h_loginForm2 {
+	width: 100%;
+	max-width: 330px;
+	padding: 15px;
+}
+
+.h_loginForm2 .form-control {
+	position: relative;
+	box-sizing: border-box;
+	height: auto;
+	padding: 10px;
+	font-size: 16px;
+}
+
+.h_loginForm2 .form-control:focus {
+	z-index: 2;
+}
+
+.h_loginForm2 input[type="text"] {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.h_loginForm2 input[type="password"] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.h_login>div {
+	border-radius: 5px;
+}
+
+.checkbox>label {
+	margin-left: 28%;
+	font-weight: 400;
+}
+
+#loginModal>div>div>div.modal-footer>button.g-signin2.h_login>div>div {
+	border-radius: 5px;
+	background-color: #28a745;
+	color: #fff;
+}
+
+.h_check {
+	color: green;
+	opacity: 0.6;
+}
+
+.h_group {
+	width: 50%;
+}
+
+.h_noticeTable {
+	text-align: center;
+	width: 80%;
+	margin-left: -1%;
+}
+
+.h_noticeTable thead {
+	background-color: gray;
+}
+
+.h_ul {
+	list-style: none;
+}
+
+.h_noticetd {
+	color: black;
+}
+
+.h_detailnotice {
+	border: 1px solid grey;
+}
+
+.h_detailnotice>div {
+	margin: 25px;
+}
+
+.h_detailnotice h1 {
+	border-bottom: 1px dashed DarkGray;
+}
+
+.h_detailnotice h1>span {
+	margin-top: 1.5%;
+	font-size: 15px;
+	float: right;
+	font-size: 15px;
+}
+
+.h_noticeno {
+	width: 180px;
+	border-right: 1px solid lightGray;
+}
+
+/* .h_golist {
+	margin-top: 10px;
+	background-color: rgb(236, 240, 245);
+	padding: 9px;
+	border: 1px solid grey;
+	float: right;
+}
+
+.h_golist :hover {
+	text-decoration: none;
+	color: black;
+}
+ */
+.h_loginpage {
+	margin-top: 3px;
+	width: 100%;
+	margin-left: 0px;
+}
+
+.abcRioButtonContentWrapper {
+	background-color: #007bff;
+	color: white;
+}
+
+.abcRioButtonContentWrapper span {
+	margin-left: -19px;
+	/* font-size: 20px; */
+}
+
+.h_divcont div {
+	margin-top: 3px;
+}
+/* @@@여기서 부터 달력@@@ */
+.h_table {
+	width: 600px;
+}
+
+.h_table tr {
+	height: 50px;
+	border: 1px solid #dee2e6;
+}
+
+.h_table td {
+	width: 80px;
+	margin: 1px;
+}
+
+.sun {
+	color: red;
+}
+
+.sat {
+	color: blue;
+}
+
+.week {
+	/* border: 1px solid gray; */
+	
+}
+
+.empty_room {
+	border: none;
+}
+
+.h_day:hover {
+	background-color: #867979;
+}
+
+#h_toolbar {
+	border: 1px solid #ccc;
+	height: 60px;
+	margin-bottom: 3px;
+}
+
+#h_wrapper input {
+	border: 1px solid #ccc;
+	border-radius:7px;
+	width: 100%;
+	height: 40px;
+	padding:7px;
+	margin-bottom: 10px;
+}
+
+#h_editor{
+	background-color: white;
+	height: 500px;
+}
+
+#h_wrapper{
+	width: 80%;
+}

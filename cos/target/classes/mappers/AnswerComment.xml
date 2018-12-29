@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.cos.comment.dao.AnswerCommentInterfaceDao">
+	<!-- 답변 댓글 등록 -->
+	<insert id="insertComment" parameterType="com.team.cos.comment.vo.AnswerCommentInfo">
+		insert into answer_comm(user_no,a_no,ac_content,ac_regdate)
+		values
+		(#{user_no},#{a_no},#{ac_content},now())
+	</insert>
+	<!-- 답변 리스트 출력 (해당 답변 하나만) -->
+	<select id="anCommListOneAnswer" resultType="com.team.cos.comment.vo.AnswerCommentInfo">
+		select a.ac_no,a.a_no,a.user_no,u.user_nickname,a.ac_content,
+			   date_format(a.ac_regdate,"%Y/%m/%e %l:%i") as ac_regdate
+		from answer_comm a inner join userinfo u
+		on a.user_no = u.user_no
+		where a.a_no = #{a_no};
+	</select>
+	<!--답변 리스트 출력(해당 질문에 답글에 대한 모든 댓글) -->
+	<select id="anCommListOneQuestion" resultType="com.team.cos.comment.vo.AnswerCommentInfo">
+		select
+		ac.ac_no,a.q_no,ac.a_no,ac.user_no,u.user_nickname,ac.ac_content,ac.ac_regdate
+		from answer a inner join answer_comm ac inner join userinfo u
+		on a.a_no = ac.a_no
+		and ac.user_no = u.user_no
+		where a.q_no = #{q_no};
+	</select>
+	<!-- 답변 댓글 수정하기  -->
+	<update id="updateComment" parameterType="com.team.cos.comment.vo.AnswerCommentInfo">
+		update answer_comm set ac_content = #{ac_content}, ac_regdate= now() 
+		where ac_no=#{ac_no}
+	</update>
+	<!-- 답변 댓글 번호로 답변 번호 출력 -->
+	<select id="findAnswerNum" resultType="int">
+		select a_no from answer_comm
+		where ac_no = #{ac_no}
+	</select>
+	<!-- 답변 댓글 삭제 -->
+	<delete id="deleteAc">
+		delete from answer_comm where ac_no = #{ac_no}
+	</delete>
+	<!-- 삭제 후 답변의 댓글 갯수  -->
+	<select id="countAnswerComm" resultType="int"> 
+		select count(*) from answer_comm
+		where a_no = #{a_no}
+	</select>
+</mapper>

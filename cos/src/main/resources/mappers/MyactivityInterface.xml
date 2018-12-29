@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.cos.mypage.dao.MyactivityInterface">
+
+<!-- 내가 한 질문 얻어오기 -->
+<select id="getMyQst" parameterType="com.team.cos.mypage.vo.MyactCriteria" resultType="com.team.cos.question.vo.QuestionInfo">
+	select * 
+	from question 
+	where q_no > 0 and user_no = #{user_no} 
+	order by q_regdate desc
+	limit #{startNum}, #{perPageNum}
+	
+</select> 
+
+<!-- 내가 한 질문 개수 카운트 -->
+<select id="countMyQst" resultType="int">
+	select count(*)
+	from question
+	where q_no>0 and user_no = #{user_no}
+</select>
+
+
+
+<!-- 내가 한 답변 얻어오기 -->
+<select id="getMyAns" resultType="com.team.cos.mypage.vo.MyAnsInfo">
+	select q.q_no, q_title,a_content, a_regdate, a_choose
+	from question q inner join answer a
+	on q.q_no = a.q_no 
+	where a.user_no=#{user_no}
+	order by a_regdate desc
+	limit #{startNum}, #{perPageNum}
+</select>
+
+<!-- 내가 한 답변 개수 카운트 -->
+<select id="countMyAns" resultType="int">
+	select count(*) from answer
+	where q_no>0 and user_no = #{user_no}
+</select> 
+ 
+ 
+<!-- 내가 북마크 한거 가져오기  -->
+<select id="getMyBmark" resultType="com.team.cos.mypage.vo.MyBookmarkInfo">
+	select q.q_no, q_title, q_regdate, q_viewcnt, q_recommand
+	from question q inner join bookmark b
+	on b.q_no = q.q_no where b.user_no=#{user_no}
+</select>
+
+<!-- 내가 한 북마크 개수 카운트 -->
+<select id="countMyBmark" resultType="int">
+	select count(*) from bookmark
+	where q_no>0 and user_no = #{user_no}
+</select> 
+ 
+ 
+ 
+ 
+ </mapper>

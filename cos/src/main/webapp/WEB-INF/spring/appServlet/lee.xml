@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+
+
+
+	<!-- project 관련 service 등록 -->
+	<beans:bean id="projectService" class="com.team.cos.project.service.ProjectRegService"></beans:bean>
+	<beans:bean id="projectModifyService" class="com.team.cos.project.service.ProjectModifyService"></beans:bean>
+	<beans:bean id="projectFinishService" class="com.team.cos.project.service.ProjectStatusChangeService"></beans:bean>
+	<beans:bean id="userProjectViewService" class="com.team.cos.project.service.UserProjectViewService"></beans:bean>
+	<beans:bean id="projectRevisionService" class="com.team.cos.project.service.ProjectRevisionService"></beans:bean>
+	
+	<!-- project member 관련 service  -->
+	<beans:bean id="projectMemberListGetService" class="com.team.cos.project.service.ProjectMemberListGetService"></beans:bean>
+	<beans:bean id="ProjectMemberDeleteService" class="com.team.cos.project.service.ProjectMemberDeleteService"></beans:bean>
+	
+	<!-- project member invitation -->
+	<beans:bean id="invitationMailService" class="com.team.cos.project.service.InvitationMailService"></beans:bean>
+	<beans:bean id="projectMemberInvitationService" class="com.team.cos.project.service.ProjectMemberInvitationService"></beans:bean>
+	
+	<!-- to do list service 등록 -->
+	<beans:bean id="tdlViewService" class="com.team.cos.project.service.TDLViewService"></beans:bean>
+	<beans:bean id="todolistInsertService" class="com.team.cos.project.service.TodolistInsertService"></beans:bean>
+	<beans:bean id="todolistModifyService" class="com.team.cos.project.service.TodolistModifyService"></beans:bean>
+	
+<!-- <bean id="scheduler" class="com.team.cos.scheduler.Scheduler" />
+    <task:scheduler id="scheduler" pool-size="10" /> -->
+    <task:annotation-driven/>
+    
+    
+</beans:beans>
